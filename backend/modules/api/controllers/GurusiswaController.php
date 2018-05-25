@@ -43,7 +43,7 @@ class GurusiswaController extends Controller
         //     LEFT JOIN program ON program.idprogram = programlevel.idprogram
         //     LEFT JOIN siswa ON siswa.idsiswa = siswabelajar.idsiswa
         //     WHERE jadwal.idguru = '".$ambilid."'
-        //     AND jadwal.statusjadwal = 'K'
+        //     AND siswabelajar.idcabang = 1
         //     ORDER BY siswa.namalengkap");
 
         // $result = $command->queryAll();
@@ -51,9 +51,10 @@ class GurusiswaController extends Controller
         // return ['status'=>'OK', 'results'=>$result];
 
         $siswabelajar = Siswabelajar::find()
-            ->select('siswabelajar.*, jadwal.*')
+            ->select('siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
             ->rightJoin('jadwal', 'jadwal.idsiswabelajar = siswabelajar.idsiswabelajar')
             ->leftJoin('programlevel', 'programlevel.idprogramlevel = siswabelajar.idprogramlevel')
+            ->leftJoin('program', 'program.idprogram = programlevel.idprogram')
             ->leftJoin('siswa', 'siswa.idsiswa = siswabelajar.idsiswa')
             ->where([
                 'siswabelajar.idcabang'=> '1',
@@ -72,17 +73,7 @@ class GurusiswaController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, program.namaprogram, programlevel.level
-            FROM siswabelajar
-            INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
-            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
-            INNER JOIN program ON programlevel.idprogram = program.idprogram
-            WHERE siswabelajar.idsiswabelajar = '".$id."'");
-        $result = $command->queryAll();
-
-        $connection = Yii::$app->getDb();
-        $command = $connection->createCommand("
-            SELECT jadwalgenerate.hari, jadwalgenerate.tanggal, guru.namaguru
+            SELECT jadwalgenerate.hari, jadwalgenerate.tanggal, jadwalgenerate.statusrapotkursus, guru.namaguru, jadwalgenerate.idgenerate
             FROM jadwalgenerate
             INNER JOIN guru ON jadwalgenerate.idguru = guru.idguru
             INNER JOIN siswabelajar ON jadwalgenerate.idsiswabelajar = siswabelajar.idsiswabelajar
@@ -90,7 +81,7 @@ class GurusiswaController extends Controller
             ORDER BY jadwalgenerate.tanggal");
         $jadwalgenerate = $command->queryAll();
 
-        return ['status'=>'OK', 'result'=>$result, 'jadwalgenerate'=>$jadwalgenerate];
+        return ['status'=>'OK', 'jadwalgenerate'=>$jadwalgenerate];
     }
 
     public function actionInputrapot($id)
@@ -120,15 +111,46 @@ class GurusiswaController extends Controller
             $tabel->rewardsikap         = $model['rewardsikap'];
 
             if($tabel->save()) {
-                return ['status'=>'OK'];
+                $jadwalgenerate->statusrapotkursus = 'S';
+                $jadwalgenerate->save();
+                return ['status'=>'OK', 'result'=>$tabel];
             }
             else{
                 return ['status'=>'FAIL'];   
             }
         }
         else{
-            return ['status'=>'OK', 'result'=>['materi'=>$lessonplan->materi, 'hal'=>$lessonplan->hal]];
+            return ['status'=>'OK'];
         }
+    }
+
+    public function actionGuru($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("
+            SELECT namaguru
+            FROM guru
+            WHERE idguru = '".$id."'");
+
+        $result = $command->queryAll();
+
+        $hasil ['namaguru'] = $result[0]['namaguru'];
+        
+        return $hasil;
+    }
+
+    public function actionMaterihalaman($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $pecah = explode("_", $id);
+        $jadwalgenerate = Jadwalgenerate::find()->where(['idgenerate'=>$pecah[0]])->one();
+        $siswabelajar = Siswabelajar::find()->where(['idsiswabelajar'=>$jadwalgenerate->idsiswabelajar])->one();
+        $lessonplan = Lessonplan::find()->where(['pertemuan'=>$pecah[1], 'idprogramlevel'=>$siswabelajar->idprogramlevel])->one();      
+        
+        return $lessonplan;  
     }
 
     public function actionLihatrapot($id)
@@ -137,7 +159,7 @@ class GurusiswaController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, program.namaprogram, programlevel.level, guru.namaguru, jadwalgenerate.tanggal, rapotbelajar.pertemuanke, rapotbelajar.materi, rapotbelajar.halamanketercapaian, rapotbelajar.hasil, rapotbelajar.catatanguru, rapotbelajar.rewardhasil, rapotbelajar.rewardsikap, siswabelajar.idsiswabelajar
+            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, guru.namaguru, rapotbelajar.tanggal, rapotbelajar.pertemuanke, rapotbelajar.materi, rapotbelajar.halamanketercapaian, rapotbelajar.hasil, rapotbelajar.catatanguru, rapotbelajar.rewardhasil, rapotbelajar.rewardsikap, siswabelajar.idsiswabelajar
             FROM rapotbelajar
             INNER JOIN guru ON rapotbelajar.idguru = guru.idguru
             INNER JOIN jadwalgenerate ON rapotbelajar.idgenerate = jadwalgenerate.idgenerate
@@ -146,9 +168,23 @@ class GurusiswaController extends Controller
             INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
             INNER JOIN program ON programlevel.idprogram = program.idprogram
             WHERE jadwalgenerate.idgenerate = '".$id."'");
-        $result = $command->queryAll();
+        $rapotkursus = $command->queryAll();
 
-        return ['status'=>'OK', 'result'=>$result];
+        $hasil['namalengkap']               = $rapotkursus[0]['namalengkap'];
+        $hasil['kelas']                     = $rapotkursus[0]['kelas'];
+        $hasil['namaprogram']               = $rapotkursus[0]['namaprogram'];
+        $hasil['level']                     = $rapotkursus[0]['level'];
+        $hasil['namaguru']                  = $rapotkursus[0]['namaguru'];
+        $hasil['tanggal']                   = $rapotkursus[0]['tanggal'];
+        $hasil['pertemuanke']               = $rapotkursus[0]['pertemuanke'];
+        $hasil['materi']                    = $rapotkursus[0]['materi'];
+        $hasil['halamanketercapaian']       = $rapotkursus[0]['halamanketercapaian'];
+        $hasil['hasil']                     = $rapotkursus[0]['hasil'];
+        $hasil['catatanguru']               = $rapotkursus[0]['catatanguru'];
+        $hasil['rewardhasil']               = $rapotkursus[0]['rewardhasil'];
+        $hasil['rewardsikap']               = $rapotkursus[0]['rewardsikap'];
+
+        return $hasil;
     }
 
     public function actionGrafikperkembangan($id)
@@ -186,19 +222,20 @@ class GurusiswaController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         
-        $connection = Yii::$app->getDb();
-        $ambilid = $id;
-        $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level
-            FROM siswabelajar
-            RIGHT JOIN jadwal ON jadwal.idsiswabelajar = siswabelajar.idsiswabelajar
-            LEFT JOIN programlevel ON programlevel.idprogramlevel = siswabelajar.idprogramlevel
-            LEFT JOIN program ON program.idprogram = programlevel.idprogram
-            LEFT JOIN siswa ON siswa.idsiswa = siswabelajar.idsiswa
-            WHERE jadwal.statusjadwal = 'K'
-            ORDER BY siswa.namalengkap");
+        $siswabelajar = Siswabelajar::find()
+            ->select('siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
+            ->rightJoin('jadwal', 'jadwal.idsiswabelajar = siswabelajar.idsiswabelajar')
+            ->leftJoin('programlevel', 'programlevel.idprogramlevel = siswabelajar.idprogramlevel')
+            ->leftJoin('program', 'program.idprogram = programlevel.idprogram')
+            ->leftJoin('siswa', 'siswa.idsiswa = siswabelajar.idsiswa')
+            ->where([
+                'siswabelajar.idcabang'=> '1',
+                ])
+            ->orderBy('siswa.namalengkap')
+            ->asArray()
+            ->all();
 
-        $result = $command->queryAll();
+        return ['status'=>'OK', 'siswabelajar'=>$siswabelajar];
         
         return ['status'=>'OK', 'results'=>$result];
     }
@@ -209,17 +246,7 @@ class GurusiswaController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, program.namaprogram, programlevel.level
-            FROM siswabelajar
-            INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
-            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
-            INNER JOIN program ON programlevel.idprogram = program.idprogram
-            WHERE siswabelajar.idsiswabelajar = '".$id."'");
-        $result = $command->queryAll();
-
-        $connection = Yii::$app->getDb();
-        $command = $connection->createCommand("
-            SELECT jadwalgenerate.hari, jadwalgenerate.tanggal, guru.namaguru
+            SELECT jadwalgenerate.hari, jadwalgenerate.tanggal, jadwalgenerate.statusrapotkursus, guru.namaguru, jadwalgenerate.idgenerate
             FROM jadwalgenerate
             INNER JOIN guru ON jadwalgenerate.idguru = guru.idguru
             INNER JOIN siswabelajar ON jadwalgenerate.idsiswabelajar = siswabelajar.idsiswabelajar
@@ -227,7 +254,7 @@ class GurusiswaController extends Controller
             ORDER BY jadwalgenerate.tanggal");
         $jadwalgenerate = $command->queryAll();
 
-        return ['status'=>'OK', 'result'=>$result, 'jadwalgenerate'=>$jadwalgenerate];
+        return ['status'=>'OK', 'jadwalgenerate'=>$jadwalgenerate];
     }
 
     public function actionAllsiswainputrapot($id)
@@ -257,16 +284,48 @@ class GurusiswaController extends Controller
             $tabel->rewardsikap         = $model['rewardsikap'];
 
             if($tabel->save()) {
-                return ['status'=>'OK'];
+                $jadwalgenerate->statusrapotkursus = 'S';
+                $jadwalgenerate->save();
+                return ['status'=>'OK', 'result'=>$tabel];
             }
             else{
                 return ['status'=>'FAIL'];   
             }
         }
         else{
-            return ['status'=>'OK', 'result'=>['materi'=>$lessonplan->materi, 'hal'=>$lessonplan->hal]];
+            return ['status'=>'OK'];
         }
     }
+
+    public function actionAllsiswaguru($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("
+            SELECT namaguru
+            FROM guru
+            WHERE idguru = '".$id."'");
+
+        $result = $command->queryAll();
+
+        $hasil ['namaguru'] = $result[0]['namaguru'];
+        
+        return $hasil;
+    }
+
+    public function actionAllsiswamaterihalaman($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $pecah = explode("_", $id);
+        $jadwalgenerate = Jadwalgenerate::find()->where(['idgenerate'=>$pecah[0]])->one();
+        $siswabelajar = Siswabelajar::find()->where(['idsiswabelajar'=>$jadwalgenerate->idsiswabelajar])->one();
+        $lessonplan = Lessonplan::find()->where(['pertemuan'=>$pecah[1], 'idprogramlevel'=>$siswabelajar->idprogramlevel])->one();      
+        
+        return $lessonplan;  
+    }
+
 
     public function actionAllsiswalihatrapot($id)
     {
@@ -274,7 +333,7 @@ class GurusiswaController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, program.namaprogram, programlevel.level, guru.namaguru, jadwalgenerate.tanggal, rapotbelajar.pertemuanke, rapotbelajar.materi, rapotbelajar.halamanketercapaian, rapotbelajar.hasil, rapotbelajar.catatanguru, rapotbelajar.rewardhasil, rapotbelajar.rewardsikap, siswabelajar.idsiswabelajar
+            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, guru.namaguru, rapotbelajar.tanggal, rapotbelajar.pertemuanke, rapotbelajar.materi, rapotbelajar.halamanketercapaian, rapotbelajar.hasil, rapotbelajar.catatanguru, rapotbelajar.rewardhasil, rapotbelajar.rewardsikap, siswabelajar.idsiswabelajar
             FROM rapotbelajar
             INNER JOIN guru ON rapotbelajar.idguru = guru.idguru
             INNER JOIN jadwalgenerate ON rapotbelajar.idgenerate = jadwalgenerate.idgenerate
@@ -283,9 +342,23 @@ class GurusiswaController extends Controller
             INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
             INNER JOIN program ON programlevel.idprogram = program.idprogram
             WHERE jadwalgenerate.idgenerate = '".$id."'");
-        $result = $command->queryAll();
+        $rapotkursus = $command->queryAll();
 
-        return ['status'=>'OK', 'result'=>$result];
+        $hasil['namalengkap']               = $rapotkursus[0]['namalengkap'];
+        $hasil['kelas']                     = $rapotkursus[0]['kelas'];
+        $hasil['namaprogram']               = $rapotkursus[0]['namaprogram'];
+        $hasil['level']                     = $rapotkursus[0]['level'];
+        $hasil['namaguru']                  = $rapotkursus[0]['namaguru'];
+        $hasil['tanggal']                   = $rapotkursus[0]['tanggal'];
+        $hasil['pertemuanke']               = $rapotkursus[0]['pertemuanke'];
+        $hasil['materi']                    = $rapotkursus[0]['materi'];
+        $hasil['halamanketercapaian']       = $rapotkursus[0]['halamanketercapaian'];
+        $hasil['hasil']                     = $rapotkursus[0]['hasil'];
+        $hasil['catatanguru']               = $rapotkursus[0]['catatanguru'];
+        $hasil['rewardhasil']               = $rapotkursus[0]['rewardhasil'];
+        $hasil['rewardsikap']               = $rapotkursus[0]['rewardsikap'];
+
+        return $hasil;
     }
 
     public function actionAllsiswagrafikperkembangan($id)

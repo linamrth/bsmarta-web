@@ -97,12 +97,14 @@ class GurusiswaController extends \yii\web\Controller
             $tabel->catatanguru         = $model->catatanguru;
             $tabel->rewardhasil         = $model->rewardhasil;
             $tabel->rewardsikap         = $model->rewardsikap;
+            $tabel->save();
 
-            if($tabel->save())
-            {
-                return $this->redirect(['view', 'id'=>$jadwalgenerate['idsiswabelajar']]);
-            }
-        } else {
+            $jadwalgenerate->statusrapotkursus = 'S';
+            $jadwalgenerate->save();
+            
+            return $this->redirect(['view', 'id'=>$jadwalgenerate['idsiswabelajar']]);
+        } 
+        else {
             $model->idguru = Yii::$app->user->identity->idguru;
             $model->materi = $lessonplan->materi;
             $model->halamanketercapaian = $lessonplan->hal;
@@ -230,11 +232,12 @@ class GurusiswaController extends \yii\web\Controller
             $tabel->catatanguru         = $model->catatanguru;
             $tabel->rewardhasil         = $model->rewardhasil;
             $tabel->rewardsikap         = $model->rewardsikap;
+            $tabel->save();
 
-            if($tabel->save())
-            {
-                return $this->redirect(['allsiswaview', 'id'=>$jadwalgenerate['idsiswabelajar']]);
-            }
+            $jadwalgenerate->statusrapotkursus = 'S';
+            $jadwalgenerate->save();
+
+            return $this->redirect(['allsiswaview', 'id'=>$jadwalgenerate['idsiswabelajar']]);
         } else {
             $model->materi = $lessonplan->materi;
             $model->halamanketercapaian = $lessonplan->hal;

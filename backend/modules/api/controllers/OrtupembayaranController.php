@@ -20,7 +20,7 @@ class OrtupembayaranController extends Controller
         
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level
+            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar
             FROM siswabelajar
             INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
             INNER JOIN orangtua ON siswa.idorangtua = orangtua.idorangtua
@@ -39,14 +39,24 @@ class OrtupembayaranController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, pembayaran.tanggal, pembayaran.statuspembayaran
+            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level
+            FROM siswabelajar
+            INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
+            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
+            INNER JOIN program ON programlevel.idprogram = program.idprogram
+            WHERE siswabelajar.idsiswabelajar = '".$id."'");
+        $siswabelajar = $command->queryAll();
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("
+            SELECT pembayaran.tanggal, pembayaran.statuspembayaran
             FROM pembayaran
             LEFT JOIN siswabelajar ON pembayaran.idsiswabelajar = siswabelajar.idsiswabelajar
             LEFT JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
             WHERE siswabelajar.idsiswabelajar = '".$id."'");
 
-        $result = $command->queryAll();
+        $pembayaran = $command->queryAll();
         
-        return ['status'=>'OK', 'results'=>$result];
+        return ['status'=>'OK', 'siswabelajar'=>$siswabelajar, 'pembayaran'=>$pembayaran];
     }
 }

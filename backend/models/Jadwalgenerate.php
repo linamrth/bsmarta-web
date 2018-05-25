@@ -32,7 +32,7 @@ class Jadwalgenerate extends \yii\db\ActiveRecord
         return [
             [['idsiswabelajar', 'idguru'], 'integer'],
             [['tanggal'], 'safe'],
-            [['hari', 'jam'], 'string', 'max' => 15],
+            [['hari', 'jam', 'statusrapotkursus'], 'string', 'max' => 15],
         ];
     }
 
@@ -48,6 +48,7 @@ class Jadwalgenerate extends \yii\db\ActiveRecord
             'tanggal' => 'Tanggal',
             'hari' => 'Hari',
             'jam' => 'Jam',
+            'statusrapotkursus' => 'Statusrapotkursus'
         ];
     }
 

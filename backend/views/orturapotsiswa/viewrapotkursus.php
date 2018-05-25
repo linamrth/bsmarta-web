@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			<th>Tanggal</th>
 			<th>Guru</th>
 			<th>Status</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -42,9 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				<td><?php echo Html::encode($n);?></td>
 				<td><?php echo Html::encode(GurusiswaController::tglIndo($key->tanggal, true));?></td>
 				<td><?php echo Html::encode($key->getNamaGuru());?></td>
-				<td><?php echo $itung == 0 ? '<span class="label label-warning">Belum Terisi</span>':'<span class="label label-success">Sudah Terisi</span>'; ?></td>
 				<td>
-					<?php if($itung == 0) { ?> 
+					<?php if($key->statusrapotkursus === 'B') { ?> 
 						<span class="label label-danger">Belum Input Rapot</span>
 					<?php } else { ?>
 						<?php echo Html::a(

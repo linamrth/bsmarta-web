@@ -68,10 +68,6 @@ class AdminkursusController extends \yii\web\Controller
             $tabel->tgldaftar       = date('Y-m-d H:i:s');
             $tabel->save();
 
-            //update tabel status jadwal
-            $getjadwal->statusjadwal = 'U';
-            $getjadwal->save();
-
             return $this->redirect(['jadwalkursus', 'id'=>$tabel->idsiswabelajar]);
         }
         else{
@@ -309,6 +305,7 @@ class AdminkursusController extends \yii\web\Controller
 
         $cariortunya = Siswa::find()->where(['idsiswa'=>$carisispro->idsiswa])->one();
 
+        //untuk input ke kuisioner
         $mingguadd = 0;
         for ($i=0; $i < $cariprogra['jmlpertemuan']; $i+=2) { 
             $tglsekarang = $carijadwal[1]['tanggal'];
@@ -329,8 +326,9 @@ class AdminkursusController extends \yii\web\Controller
             $mingguadd++;
         }
 
+        //untuk input ke pembayaran
         $bulanadd = 0;
-        for($i=0; $i<$cariprogra['jmlpertemuan']; $i+=8){
+        for($i=0; $i < $cariprogra['jmlpertemuan']; $i+=8){
             $tglsekarang = $carijadwal[0]['tanggal'];
             $bayar = new Pembayaran();
             $bayar->idsiswabelajar = $id;
@@ -346,6 +344,7 @@ class AdminkursusController extends \yii\web\Controller
             $bulanadd++;
         }
 
+        //untuk input ke rapot kursus
         foreach ($carijadwal as $key) 
         {
             $plus = 7;
@@ -363,10 +362,11 @@ class AdminkursusController extends \yii\web\Controller
                     $jadwalgenerate->tanggal         = $tglnyaaa;
                 }
 
-                $jadwalgenerate->idsiswabelajar = $carisispro->idsiswabelajar;
-                $jadwalgenerate->idguru         = $key->idguru;
-                $jadwalgenerate->hari            = $key->hari;
-                $jadwalgenerate->jam             = $key->jam;
+                $jadwalgenerate->idsiswabelajar         = $carisispro->idsiswabelajar;
+                $jadwalgenerate->idguru                 = $key->idguru;
+                $jadwalgenerate->hari                   = $key->hari;
+                $jadwalgenerate->jam                    = $key->jam;
+                //$jadwalgenerate->statusrapotkursus      = 'B';
                 $jadwalgenerate->save();
             }
         }

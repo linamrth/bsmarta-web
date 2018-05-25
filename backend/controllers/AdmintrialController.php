@@ -251,6 +251,10 @@ class AdmintrialController extends \yii\web\Controller
             //update tabel status siswa
             $getsiswa->statussiswa = 'M';
             $getsiswa->save();
+
+            //update tabel status jadwal
+            $getjadwal->statusjadwal = 'U';
+            $getjadwal->save();
             
             return $this->redirect(['siswatrial']);
         }
@@ -302,6 +306,10 @@ class AdmintrialController extends \yii\web\Controller
             //update tabel status siswa
             $getsiswa->statussiswa = 'M';
             $getsiswa->save();
+
+            //update tabel status jadwal
+            $getjadwal->statusjadwal = 'U';
+            $getjadwal->save();
             
             return $this->redirect(['siswatrial']);
         }

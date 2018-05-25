@@ -26,7 +26,7 @@ class RapottrialcintamatikaForm extends Model
 			'soal4' => 'Operasi hitung pengurangan',
 			'soal5' => 'Pemahaman soal cerita',
 			'soal6' => 'Kemandirian',
-			'soal7' => 'Kemmapuan Komunikasi',
+			'soal7' => 'Kemampuan Komunikasi',
 			'soal8' => 'Berkebutuhan Khusus',
 			'catatan' => 'Catatan',
 		];
