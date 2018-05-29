@@ -194,7 +194,7 @@ AppAsset::register($this);
                     ]
                 ],
                 ['label' => 'Pembayaran Kursus', 'url' => ['/direkturpembayaran/index']],
-                ['label' => 'Kinerja Guru', 'url' => ['/direkturkinerjaguru/index']],
+                ['label' => 'Kinerja Guru', 'url' => ['/direkturkuisioner/index']],
             ];
         }
 
