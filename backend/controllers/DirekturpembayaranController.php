@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\db\Query;
+use yii\base\DynamicModel;
 
 use backend\models\Pembayaran;
 use backend\models\Siswabelajar;
@@ -35,6 +36,64 @@ class DirekturpembayaranController extends \yii\web\Controller
         $result = $command->queryAll();
         
         return $this->render('detailpembayaran', ['result'=>$result]);
+    }
+
+    public function actionPembayaranglobal()
+    {
+        $model = new DynamicModel(['tahun', 'bulan']);
+        $model->addRule(['tahun'], 'string');
+        $model->addRule(['tahun'], 'required');
+        $model->addRule(['bulan'], 'string');
+        $model->addRule(['bulan'], 'required');
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $tanggal = $model['tahun'].'-'.$model['bulan'];
+            $connection = Yii::$app->getDb();
+            $command = $connection->createCommand("
+                SELECT siswa.namalengkap, program.namaprogram, programlevel.level, pembayaran.tanggal, pembayaran.statuspembayaran
+                FROM pembayaran
+                INNER JOIN siswabelajar ON pembayaran.idsiswabelajar = siswabelajar.idsiswabelajar
+                INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
+                INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
+                INNER JOIN program ON programlevel.idprogram = program.idprogram
+                WHERE pembayaran.statuspembayaran = 'S' AND tanggal LIKE '".$tanggal."%'");
+            $result = $command->queryAll();
+
+            return $this->render('pembayaranglobal', [
+                'model'=>$model, 
+                'result'=>$result, 
+                'tahun'=>$this->getTahun(), 
+                'bulan'=>$this->getBulan()
+            ]);
+        } 
+        else{
+            $model->tahun = '';
+            $model->bulan = '';
+            return $this->render('pembayaranglobal', [
+                'model'=>$model, 
+                'result'=>[], 
+                'tahun'=>$this->getTahun(), 
+                'bulan'=>$this->getBulan()
+            ]);
+        }
+    }
+
+    protected function getBulan()
+    {
+        $bulan = [
+            '01'=>'Januari','02'=>'Februari','03'=>'Maret','04'=>'April','05'=>'Mei','06'=>'Juni',
+            '07'=>'Juli','08'=>'Agustus','09'=>'September','10'=>'Oktober','11'=>'November','12'=>'Desember',
+        ];
+
+        return $bulan;
+    }
+
+    protected function getTahun() 
+    {
+        $currentYear = date('Y');
+        $yearFrom = date('Y')-10;
+        $yearsRange = range($yearFrom, $currentYear);
+        return array_combine($yearsRange, $yearsRange);
     }
 
     public static function tglIndo($tanggal, $cetak_hari = false)

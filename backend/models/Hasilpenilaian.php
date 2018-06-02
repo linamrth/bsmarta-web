@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "hasilpenilaian".
  *
  * @property int $idhasilpenilaian
- * @property int $mingguke
+ * @property string $mingguke
  * @property int $idguru
- * @property int $hasil
+ * @property double $hasil
  */
 class Hasilpenilaian extends \yii\db\ActiveRecord
 {
@@ -29,7 +29,9 @@ class Hasilpenilaian extends \yii\db\ActiveRecord
     {
         return [
             [['mingguke', 'idguru', 'hasil'], 'required'],
-            [['mingguke', 'idguru', 'hasil'], 'integer'],
+            [['mingguke'], 'safe'],
+            [['idguru'], 'integer'],
+            [['hasil'], 'number'],
         ];
     }
 

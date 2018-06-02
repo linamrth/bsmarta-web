@@ -64,11 +64,11 @@ $this->title = 'Form Kuisioner || Orangtua';
 				<div class="panel-body">
 				<?php $form = ActiveForm::begin();?>	
 				<div class="col-sm-12">
-					<?= $form->field($model, 'penguasaanmateri')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10']) ?>
-					<?= $form->field($model, 'kemampuanmengajar')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10']) ?>
-					<?= $form->field($model, 'kedisiplinan')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10']) ?>
-					<?= $form->field($model, 'tanggungjawabdantingkahlaku')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10']) ?>
-					<?= $form->field($model, 'kerjasama')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10']) ?>
+					<?= $form->field($model, 'penguasaanmateri')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) ?>
+					<?= $form->field($model, 'kemampuanmengajar')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) ?>
+					<?= $form->field($model, 'kedisiplinan')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) ?>
+					<?= $form->field($model, 'tanggungjawabdantingkahlaku')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) ?>
+					<?= $form->field($model, 'kerjasama')->radioList(['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5']) ?>
 				</div>
 				<?php echo Html::submitButton('Submit Kuisioner', ['class' => 'btn btn-success']); ?>
 				

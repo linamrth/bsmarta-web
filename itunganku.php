@@ -2,6 +2,17 @@
 
 $db = new mysqli('localhost','root','','bsmarta');
 
+//query untuk mencari nilai per guru dalam satu bulan
+// $sql01 = "SELECT 
+// 			idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
+// 		    penguasaanmateri
+// 		FROM 
+// 			kuisioner
+// 		WHERE 
+// 			statuskuisioner = 'S' 
+// 		    AND tanggal LIKE '2018-05%'
+// 			AND idguru = '1'";
+
 $sql = "SELECT 
 		idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
 	    COUNT(idorangtua) as orangtua,
@@ -11,9 +22,9 @@ $sql = "SELECT
 		kuisioner
 	WHERE 
 		statuskuisioner = 'S' 
-	    AND WEEK(tanggal) = 18
+	    AND tanggal LIKE '2018-05%'
 	GROUP BY 
-		WEEK(tanggal),
+		SUBSTRING(tanggal, 1, 7),
 	    idguru";
 
 // ======================================================================== //
@@ -80,11 +91,11 @@ echo "<br>";
 // print_r($dataHasil);
 echo "<br>";
 
-$bobotC1 = 0.25;
-$bobotC2 = 0.25;
-$bobotC3 = 0.10;
-$bobotC4 = 0.25;
-$bobotC5 = 0.15;
+$bobotC1 = 25;
+$bobotC2 = 25;
+$bobotC3 = 10;
+$bobotC4 = 25;
+$bobotC5 = 15;
 
 $hasilAkhir = [];
 

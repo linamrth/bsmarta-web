@@ -29,7 +29,8 @@ class OrtuprofilController extends Controller
             SELECT siswa.namalengkap, siswa.kelas
             FROM siswa
             INNER JOIN orangtua ON siswa.idorangtua = orangtua.idorangtua
-            WHERE siswa.idorangtua = '".$id."'");
+            WHERE siswa.idorangtua = '".$id."'
+            ORDER BY siswa.namalengkap");
 
         $queryProfile = $connection->createCommand("
             SELECT namaortu, jeniskelamin, telepon

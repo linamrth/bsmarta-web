@@ -4,24 +4,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 use yii\widgets\ActiveForm;
+use backend\controllers\DirekturpembayaranController;
 
+use backend\models\Pembayaran;
 
-$this->title = 'Penilaian Kinerja Guru || Direktur';
-function statusLabel($isi)
-{
-	if($isi < 3.34) {
-		$hasil = "<span class='label label-warning'>Warning</span>";
-	}
-	else{
-		$hasil = "<span class='label label-success'>Aman</span>";
-	}
-
-	return $hasil;
-}
+$this->title = 'Pembayaran Global || Pimpinan';
 ?>
 
 <div class="row">
-	<h3>Penilaian Kinerja Guru</h3>
+	<h3>Pembayaran Global</h3>
 	<hr>
 	<div class="col-sm-4">
 		<div class="panel panel-default">
@@ -39,29 +30,34 @@ function statusLabel($isi)
 	<form>
 	<div class="col-sm-8">
 		<div class="panel panel-default">
-			<div class="panel-heading">Informasi Penilaian Kinerja Guru</div>
+			<div class="panel-heading">Informasi Pembayaran Global</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Nama Guru</th>
-						<th>Total Nilai</th>
-						<th>Status</th>
+						<th>Nama Siswa</th>
+						<th>Program Kursus</th>
+						<th>Tanggal</th>
+						<th>Status Pembayaran</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php $n=0; foreach ($hasil as $key) { $n++; ?>
+					<?php $n=0; foreach ($result as $key) { $n++; ?>
 					<tr>
 						<td><?= $n;?></td>
-						<td><?= $key['nmguru'];?></td>
-						<td><?= $key['hasil'];?></td>
-						<td><?= statusLabel($key['hasil']);?></td>
+						<td><?= $key['namalengkap'];?></td>
+						<td><?= $key['namaprogram'].'- Level '.$key['level'];?></td>
+						<td><?php echo Html::encode(DirekturpembayaranController::tglIndo($key['tanggal'], true));?></td>
+						<td>
+		                    <?php if($key['statuspembayaran'] === 'B') { ?>  
+		                        <span class="label label-danger">Belum Bayar</span>
+		                    <?php } else { ?>
+		                        <span class="label label-success">Sudah Bayar</span>
+		                    <?php } ?>
+		                </td>
 					</tr>
 				<?php } ?>
-				</tbody>
-				<tbody>
-					
 				</tbody>
 			</table>
 			</div>

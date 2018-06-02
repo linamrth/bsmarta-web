@@ -193,7 +193,11 @@ AppAsset::register($this);
                         ['label'=>'Perkembangan Hasil Belajar', 'url' => ['/direkturrapotsiswa/allsiswa']],
                     ]
                 ],
-                ['label' => 'Pembayaran Kursus', 'url' => ['/direkturpembayaran/index']],
+                ['label' => 'Pembayaran Kursus', 'items'=>[
+                        ['label'=>'Pembayaran Global', 'url' => ['/direkturpembayaran/pembayaranglobal']],
+                        ['label'=>'Rincian Pembayaran', 'url' => ['/direkturpembayaran/index']],
+                    ]
+                ],
                 ['label' => 'Kinerja Guru', 'url' => ['/direkturkuisioner/index']],
             ];
         }
@@ -207,7 +211,11 @@ AppAsset::register($this);
                         ['label'=>'Perkembangan Hasil Belajar', 'url' => ['/pimpinanrapotsiswa/allsiswa']],
                     ]
                 ],
-                ['label' => 'Pembayaran Kursus', 'url' => ['/pimpinanpembayaran/index']],
+                ['label' => 'Pembayaran Kursus', 'items'=>[
+                        ['label'=>'Pembayaran Global', 'url' => ['/pimpinanpembayaran/pembayaranglobal']],
+                        ['label'=>'Rincian Pembayaran', 'url' => ['/pimpinanpembayaran/index']],
+                    ]
+                ],
             ];
         }
 

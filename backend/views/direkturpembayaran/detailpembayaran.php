@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php if($key['statuspembayaran'] === 'B') { ?>  
                             <span class="label label-danger">Belum Bayar</span>
                         <?php } else { ?>
-                            <span class="label label-warning">Sudah Bayar</span>
+                            <span class="label label-success">Sudah Bayar</span>
                         <?php } ?>
                     </td>
                 </tr>
