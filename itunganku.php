@@ -3,15 +3,16 @@
 $db = new mysqli('localhost','root','','bsmarta');
 
 //query untuk mencari nilai per guru dalam satu bulan
-// $sql01 = "SELECT 
-// 			idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
-// 		    penguasaanmateri
-// 		FROM 
-// 			kuisioner
-// 		WHERE 
-// 			statuskuisioner = 'S' 
-// 		    AND tanggal LIKE '2018-05%'
-// 			AND idguru = '1'";
+$sql01 = "SELECT 
+			idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
+		    penguasaanmateri, kemampuanmengajar, kedisiplinan, tanggungjawabdantingkahlaku, kerjasama
+		FROM 
+			kuisioner
+		WHERE 
+			statuskuisioner = 'S' 
+		    AND tanggal LIKE '2018-05%'
+			AND idguru = '2'
+        ORDER By WEEK(tanggal)";
 
 $sql = "SELECT 
 		idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 

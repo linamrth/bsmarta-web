@@ -247,7 +247,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Lina Meritha - Teknik Informatika (<a target="_blank" href="https://pens.ac.id/">PENS</a>) <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Lina Meritha - D3 Teknik Informatika (<a target="_blank" href="https://pens.ac.id/">PENS</a>) <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
