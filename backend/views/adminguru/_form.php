@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'alamat')->textArea(['maxlength' => true])->textArea(['placeholder' => "Input Alamat"]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create Guru' : 'Update Guru', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-plus"></i> Tambah Guru' : '<i class="glyphicon glyphicon-edit"></i> Edit Guru', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -10,7 +10,7 @@ $this->title = 'Cabang || Admin';
 	<h3 >Daftar Cabang</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Cabang', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Cabang', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -31,7 +31,7 @@ $this->title = 'Cabang || Admin';
 					<td><?php echo Html::encode($key->kabupaten);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-search"></i> Detail',
+							'<i class="glyphicon glyphicon-search"></i> Detail Cabang',
 							['view','id'=>$key->idcabang],
 							['class'=>'btn btn-sm btn-info']
 							);

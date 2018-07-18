@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'kabupaten')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input Kabupaten"]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create Cabang' : 'Update Cabang', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-plus"></i> Tambah Cabang' : '<i class="glyphicon glyphicon-edit"></i> Edit Cabang', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

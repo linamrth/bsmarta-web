@@ -19,8 +19,19 @@ class PimpinanpembayaranController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $siswabelajar = Siswabelajar::find()->orderBy(['idsiswa' => SORT_ASC])->all();
-        return $this->render('index', ['siswabelajars'=>$siswabelajar]);
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("
+            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar, orangtua.namaortu
+            FROM siswabelajar
+            INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
+            INNER JOIN orangtua ON siswa.idorangtua = orangtua.idorangtua
+            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
+            INNER JOIN program ON programlevel.idprogram = program.idprogram
+            ORDER BY siswa.namalengkap");
+
+        $result = $command->queryAll();
+        
+        return $this->render('index', ['result'=>$result]);
     }
 
     public function actionDetailpembayaran($id)

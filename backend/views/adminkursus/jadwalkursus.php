@@ -133,7 +133,7 @@ $nmprogram = Program::find()->where(['idprogram'=>$programlevel->idprogram])->on
                         ['prompt'=>'-Pilih Jam-']
                     )->label('Pilih Jam') ?>
 
-                <?php echo Html::submitButton('Buat Jadwal Kursus', ['class'=>'btn btn-success']);?>
+                <?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Buat Jadwal Kursus', ['class'=>'btn btn-success']);?>
             </div>
         </div> 
         <?php ActiveForm::end();?> 

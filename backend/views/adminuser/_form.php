@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
         )->label('Guru') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Create User', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah User', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -11,7 +11,7 @@ $this->title = 'Hasil Perkembangan Belajar Siswa || Guru';
 <h3>Hasil Perkembangan Belajar Siswa : <?php echo $siswa['namalengkap'].' - '.$program['namaprogram'].' '.$lvprogram['level'];?></h3>
 <hr>
 <p>
-	<?= Html::a('Kembali',['allsiswaview', 'id'=>$back],['class'=>'btn btn-warning'])?>
+	<?= Html::a('<i class="glyphicon glyphicon-unshare"></i> Kembali',['allsiswaview', 'id'=>$back],['class'=>'btn btn-warning'])?>
 </p>
 <style type="text/css">
 	.glyphicon {

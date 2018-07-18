@@ -13,7 +13,7 @@ $this->title = 'Guru || Admin';
 	<h3 >Daftar Guru</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Guru', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Guru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -27,6 +27,7 @@ $this->title = 'Guru || Admin';
 		<tbody>
 			<?php $n=0; foreach ($gurus as $key) { $n++;?>
 			<?php $guru = Guru::find()->where(['idguru'=>$key['idguru']])->one(); ?>
+			
 	   		<?php $nmcabang = Cabang::find()->where(['idcabang'=>$guru['idcabang']])->one(); ?>
 				<tr>
 					<td><?php echo $n;?></td>
@@ -34,7 +35,7 @@ $this->title = 'Guru || Admin';
 					<td><?php echo Html::encode($nmcabang['namacabang']);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-search"></i> Detail',
+							'<i class="glyphicon glyphicon-search"></i> Detail Guru',
 							['view','id'=>$key->idguru],
 							['class'=>'btn btn-sm btn-info']
 							);

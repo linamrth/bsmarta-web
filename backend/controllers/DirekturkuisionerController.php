@@ -28,11 +28,37 @@ class DirekturkuisionerController extends \yii\web\Controller
 		//jiks di klik submit
 		if($model->load(Yii::$app->request->post()) && $model->validate()) {
 			$tanggal = $model['tahun'].'-'.$model['bulan'];
-			$hasilnya = $this->hitungNilaiBulanan($tanggal);
+
+			//untuk membandingkan apakah bulan yg dipilih adalah bulan ini
+			if ((int) $model['bulan'] > date('n')) {
+				$pesan = 'Belum Ada Data Untuk Bulan Depan';
+				$hasilnya = [];
+			}
+			//untuk membandingkan apakah hari ini merupakan hari terakhir pada bulan ini
+			elseif ((int) $model['bulan'] == date('n')) {
+				//jika hari ini bukan hari terakhir pada bulan ini maka tidak boleh tampil
+				if (date('j') != date("j", strtotime("last day of this month"))) {
+					$pesan = 'Tidak Ada Data Karena Belum Hari Terakhir';
+					$hasilnya = [];
+					
+				}
+				else {
+					$pesan = 'Tidak Ada Data';
+					$hasilnya = [];
+				}
+			}
+			//jika hari ini hari terakhir pada bulan ini maka ditampilkan
+			else {
+
+				$pesan = 'Ada Data';
+				$hasilnya = $this->hitungNilaiBulanan($tanggal);
+					
+			}
 
 			return $this->render('index', [
 				'model'=>$model, 
 				'hasil'=>$hasilnya,
+				'pesan'=>$pesan,
 				'tahun'=>$this->getTahun(), 
 				'bulan'=>$this->getBulan()
 			]);
@@ -44,6 +70,7 @@ class DirekturkuisionerController extends \yii\web\Controller
 			return $this->render('index', [
 				'model'=>$model, 
 				'hasil'=>[], 
+				'pesan'=>'',
 				'tahun'=>$this->getTahun(), 
 				'bulan'=>$this->getBulan()
 			]);
@@ -129,6 +156,7 @@ class DirekturkuisionerController extends \yii\web\Controller
 		for ($i=0; $i < count($hasilAkhir); $i++) { 
 			$gurunya = Guru::find()->where(['idguru'=>$tempIdGuru[$i]])->one();
 			array_push($hasilpalingakhir, ['hasil'=>$hasilAkhir[$i]/$tempPembagi[$i], 'idguru'=>$tempIdGuru[$i], 'nmguru'=>$gurunya['namaguru']]);
+			
 		}
 
         return $this->render('bulanan', [
@@ -141,19 +169,19 @@ class DirekturkuisionerController extends \yii\web\Controller
   //   	$convertWeek = date('W', strtotime($id));
   //   	$connection = Yii::$app->getDb();
   //       $command = $connection->createCommand("
-  //           SELECT 
-		// 		idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
-		// 	    COUNT(idorangtua) as orangtua,
-		// 		SUM(penguasaanmateri) AS penguasaanmateri, SUM(kemampuanmengajar) AS kemampuanmengajar, SUM(kedisiplinan) AS kedisiplinan, 
-		// 	    SUM(tanggungjawabdantingkahlaku) AS tanggungjawabdantingkahlaku,  SUM(kerjasama) AS kerjasama
-		// 	FROM 
-		// 		kuisioner
-		// 	WHERE 
-		// 		statuskuisioner = 'S' 
-		// 	    AND WEEK(tanggal) = '".($convertWeek-1)."'
-		// 	GROUP BY 
-		// 		WEEK(tanggal),
-		// 	    idguru");
+   //          SELECT 
+			// 	idguru, idorangtua, tanggal, WEEK(tanggal) AS mingguke, 
+			//     COUNT(idorangtua) as orangtua,
+			// 	SUM(penguasaanmateri) AS penguasaanmateri, SUM(kemampuanmengajar) AS kemampuanmengajar, SUM(kedisiplinan) AS kedisiplinan, 
+			//     SUM(tanggungjawabdantingkahlaku) AS tanggungjawabdantingkahlaku,  SUM(kerjasama) AS kerjasama
+			// FROM 
+			// 	kuisioner
+			// WHERE 
+			// 	statuskuisioner = 'S' 
+			//     AND WEEK(tanggal) = '".($convertWeek-1)."'
+			// GROUP BY 
+			// 	WEEK(tanggal),
+			//     idguru");
 
   //       $result1 = $command->queryAll();
 

@@ -14,7 +14,7 @@ $this->title = 'User || Admin';
 	<h3 >Daftar User</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -36,7 +36,7 @@ $this->title = 'User || Admin';
 					<td><?php echo Html::encode($nmcabang['namacabang']);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-search"></i> Detail',
+							'<i class="glyphicon glyphicon-search"></i> Detail User',
 							['view','id'=>$key->id],
 							['class'=>'btn btn-sm btn-info']
 							);

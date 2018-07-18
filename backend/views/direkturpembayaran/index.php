@@ -27,23 +27,17 @@ $this->title = 'Pembayaran || Admin';
             </tr>
         </thead>
         <tbody>
-            <?php $n=0; foreach ($siswabelajars as $key) { $n++;?>
-            <?php $siswabelajar = Siswabelajar::find()->where(['idsiswabelajar'=>$key['idsiswabelajar']])->one(); ?>
-            <?php $siswa = Siswa::find()->where(['idsiswa'=>$siswabelajar['idsiswa']])->one(); ?>
-            <?php $nmortu = Orangtua::find()->where(['idorangtua'=>$siswa['idorangtua']])->one(); ?>
-            <?php $lvprogram = Programlevel::find()->where(['idprogramlevel'=>$siswabelajar['idprogramlevel']])->one();?>
-            <?php $nmprogram = Program::find()->where(['idprogram'=>$lvprogram['idprogram']])->one();?>
-
+            <?php $n=0; foreach ($result as $key) { $n++;?>
                 <tr>
                     <td><?php echo $n;?></td>
-                    <td><?php echo Html::encode($siswa['namalengkap']);?></td>
-                    <td><?php echo Html::encode($siswa['kelas']);?></td>
-                    <td><?php echo Html::encode($nmortu->namaortu);?></td>
-                    <td><?php echo Html::encode($nmprogram->namaprogram.' - Level '.$lvprogram->level);?></td>
+                    <td><?php echo Html::encode($key['namalengkap']);?></td>
+                    <td><?php echo Html::encode($key['kelas']);?></td>
+                    <td><?php echo Html::encode($key['namaortu']);?></td>
+                    <td><?php echo Html::encode($key['namaprogram'].' - Level '.$key['level']);?></td>
                     <td>
                         <?php echo Html::a(
                             '<i class="glyphicon glyphicon-search"></i> Detail Pembayaran',
-                            ['detailpembayaran','id'=>$key->idsiswabelajar],
+                            ['detailpembayaran','id'=>$key['idsiswabelajar']],
                             ['class'=>'btn btn-sm btn-info']
                             );
                         ?>

@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     	)->label('Program') ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create Skill Guru' : 'Update Skill Guru', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-plus"></i> Tambah Skill Guru' : '<i class="glyphicon glyphicon-edit"></i> Edit Skill Guru', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

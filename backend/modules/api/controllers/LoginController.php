@@ -27,7 +27,14 @@ class LoginController extends Controller
         if (Yii::$app->request->post()) {
         	$model 		= Yii::$app->request->post();
         	$userdata	= $tabel->findByUsername($model['username']);
-            $validasi 	= Yii::$app->security->validatePassword($model['password'], $userdata->password_hash);
+
+            if ($userdata != null) {
+                $validasi   = Yii::$app->security->validatePassword($model['password'], $userdata->password_hash);
+            }
+            else{
+                return ['status'=>'FAIL', 'result'=>'Username or password wrong!!!.'];
+            }
+            
             
             if($userdata && $validasi){
             	return ['status'=>'OK', 'result'=>$userdata];

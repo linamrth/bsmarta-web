@@ -12,7 +12,7 @@ $this->title = 'Orang Tua || Admin';
 	<h3 >Daftar Orang Tua</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Data Orang Tua', ['daftarortu'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Data Orangtua', ['daftarortu'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -32,17 +32,18 @@ $this->title = 'Orang Tua || Admin';
 					<td><?php echo Html::encode($key->telepon);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-search"></i> Detail',
-							['view','id'=>$key->idorangtua],
-							['class'=>'btn btn-sm btn-info']
-							);
-						?>
-						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-plus"></i> Daftar User',
+							'<i class="glyphicon glyphicon-user"></i> Daftar User',
 							['formuserortu','id'=>$key->idorangtua],
 							['class'=>'btn btn-sm btn-success']
 							);
 						?>
+						<?php echo Html::a(
+							'<i class="glyphicon glyphicon-search"></i> Detail Data Orangtua',
+							['view','id'=>$key->idorangtua],
+							['class'=>'btn btn-sm btn-info']
+							);
+						?>
+						
 					</td>
 				</tr>
 			<?php } ?>

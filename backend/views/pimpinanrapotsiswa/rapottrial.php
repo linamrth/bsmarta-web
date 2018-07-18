@@ -24,7 +24,7 @@ $CintamatikaForm = $tabelcmForm->attributeLabels();
 ?>
 
 <div class="row">
-	<h2>Rapot Trial - Cinta Matika</h2>
+	
 	<?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal']]);?>
 	<div class="col-sm-4">
 		<div class="panel panel-default">

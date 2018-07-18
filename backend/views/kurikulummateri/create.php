@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Create Materi';
+$this->title = 'Tambah Materi';
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Materi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="materi-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Siswa Trial', 'url' => ['siswatria
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="informasitrial-view">
-<h3><?= Html::encode($this->title) ?></h3>
     <?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal']]);?>
     <?php foreach ($result as $key) { ?>
     

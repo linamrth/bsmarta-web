@@ -19,10 +19,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Daftar Siswa', 'url' => ['allsiswa
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h3>Hasil Perkembangan Siswa : <?php echo $result[0]['namalengkap'].' - '.$result[0]['namaprogram'].' '.$result[0]['level'];?></h3>
+<h3>Hasil Perkembangan Siswa : <?php echo $result[0]['namalengkap'].' - '.$result[0]['namaprogram'].' Level '.$result[0]['level'];?></h3>
 <hr>
 <p>
-	<?= Html::a('Grafik Perkembangan Hasil Belajar',['allsiswagrafikperkembangan', 'id'=>$result[0]['idsiswabelajar']],['class'=>'btn btn-info'])?>
+	<?= Html::a('<i class="glyphicons glyphicons-charts"></i> Grafik Perkembangan Belajar',['allsiswagrafikperkembangan', 'id'=>$result[0]['idsiswabelajar']],['class'=>'btn btn-info'])?>
 </p>
 
 <table class="table table-striped">

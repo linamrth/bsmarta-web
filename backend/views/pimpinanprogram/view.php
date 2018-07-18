@@ -12,7 +12,7 @@ use backend\models\Programlevel;
 $lvprogram = Programlevel::find()->where(['idprogramlevel'=>$judul->idprogramlevel])->one();
 $nmprogram = Program::find()->where(['idprogram'=>$lvprogram->idprogram])->one();
 
-$this->title = $nmprogram->namaprogram. ' - '.$lvprogram->level;
+$this->title = $nmprogram->namaprogram. ' - Level '.$lvprogram->level;
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Program', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

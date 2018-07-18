@@ -68,6 +68,10 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function getImageurl()
+    {
+      return \Yii::getAlias('@imageurl').'/'.'logo.PNG';
+    }
     /**
      * Login action.
      *

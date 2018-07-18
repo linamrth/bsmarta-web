@@ -1,14 +1,12 @@
 <?php
 use yii\helpers\Html;
 
-$this->title = 'Update Lesson Plan';
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Lesson Plan', 'url' => ['index']];
+$this->title = 'Edit Target Belajar';
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Target Belajar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->idlessonplan, 'url' => ['view', 'id' => $model->idlessonplan]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="lessonplan-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

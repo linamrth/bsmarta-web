@@ -51,14 +51,17 @@ function statusLabel($isi)
 					</tr>
 				</thead>
 				<tbody>
+					<?php if (count ($hasil) == 0) {
+						echo "<tr><td class='text-center' colspan='4'>".$pesan."</td></tr>";
+					} else{ ?>
 					<?php $n=0; foreach ($hasil as $key) { $n++; ?>
 					<tr>
 						<td><?= $n;?></td>
 						<td><?= $key['nmguru'];?></td>
-						<td><?= $key['hasil'];?></td>
+						<td><?= ceil($key['hasil']);?></td>
 						<td><?= statusLabel($key['hasil']);?></td>
 					</tr>
-				<?php } ?>
+				<?php }} ?>
 				</tbody>
 				<tbody>
 					

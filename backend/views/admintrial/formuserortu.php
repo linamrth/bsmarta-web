@@ -8,9 +8,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Daftar Orang tua', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1><?= Html::encode($this->title) ?></h1>
-<hr>
-
 <?php $form = ActiveForm::begin([
     'options' => [
         'enctype'=>'multipart/form-data'
@@ -24,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $form->field($model, 'password')->passwordInput()->label('Password Hint') ?>
 
 <div class="form-group">
-    <?= Html::submitButton('Create User Ortu', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah User Orangtua', ['class' => 'btn btn-success']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

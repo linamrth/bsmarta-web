@@ -7,7 +7,6 @@ $this->title = 'Create Orang Tua';
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Orang Tua', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1>Create Orang Tua</h1>
 
 <?php $form = ActiveForm::begin();?>
 	<?php echo $form->field($model, 'namaortu')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input Nama Orang Tua"])?>
@@ -17,5 +16,5 @@ $this->params['breadcrumbs'][] = $this->title;
         )->label('Jenis Kelamin') ?>
 	<?php echo $form->field($model, 'telepon')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input No Telepon"])?>
 
-	<?php echo Html::submitButton('Create Orang Tua', ['class'=>'btn btn-success']);?>
+	<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Data Orangtua', ['class'=>'btn btn-success']);?>
 <?php ActiveForm::end();?>

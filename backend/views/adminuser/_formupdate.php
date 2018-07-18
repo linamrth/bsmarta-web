@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Update User', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('<i class="glyphicon glyphicon-edit"></i> Edit User', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal']]);?>
         <div class="col-sm-4">
         <p>
-            <?= Html::a('Update', ['update', 'id' => $ortus->idorangtua], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="glyphicon glyphicon-edit"></i> Edit Data Orangtua', ['update', 'id' => $ortus->idorangtua], ['class' => 'btn btn-primary']) ?>
         </p>
         <div class="panel panel-default">
             <div class="panel-heading">Informasi Orang Tua</div>
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col-sm-8">
         <p>
-            <?= Html::a('Tambah Data Siswa', ['daftarsiswa', 'id'=>$ortus->idorangtua], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Data Siswa', ['daftarsiswa', 'id'=>$ortus->idorangtua], ['class' => 'btn btn-success']) ?>
         </p>
         <div class="panel panel-default">
             <div class="panel-heading">Data Anak</div>

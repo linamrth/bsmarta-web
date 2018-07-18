@@ -11,10 +11,10 @@ $this->title = 'Lesson Plan || Kurikulum';
 ?>
 
 <div class="row">
-	<h3 >Daftar Lesson Plan</h3>
+	<h3 >Daftar Target Belajar</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Lesson Plan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Target Belajar', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -40,14 +40,14 @@ $this->title = 'Lesson Plan || Kurikulum';
 					<td><?php echo Html::encode($key->materi);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-pencil"></i> Update',
+							'<i class="glyphicon glyphicon-edit"></i> Edit',
 							['update','id'=>$key->idlessonplan],
 							['class'=>'btn btn-primary']
 							);
 						?>
 
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-remove"></i> Delete',
+							'<i class="glyphicon glyphicon-remove"></i> Hapus',
 							['delete','id'=>$key->idlessonplan],
 							[
 				            'class' => 'btn btn-sm btn-danger',

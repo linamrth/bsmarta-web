@@ -67,7 +67,7 @@ $nmprogram = Program::find()->where(['idprogram'=>$trial->idprogram])->one();
                         ['prompt'=>'-Pilih Jam-']
                     )->label('Pilih Jam') ?>
 
-                <?php echo Html::submitButton('Create Jadwal Trial', ['class'=>'btn btn-success']);?>
+                <?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Jadwal Trial', ['class'=>'btn btn-success']);?>
             </div>
         </div> 
         <?php ActiveForm::end();?> 

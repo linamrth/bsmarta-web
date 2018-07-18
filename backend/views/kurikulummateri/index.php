@@ -14,7 +14,7 @@ $this->title = 'Materi || Kurikulum';
 	<h3 >Daftar Materi</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Materi', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Materi', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -39,14 +39,14 @@ $this->title = 'Materi || Kurikulum';
 					<td><?php echo Html::encode($key->materi);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-pencil"></i> Update',
+							'<i class="glyphicon glyphicon-edit"></i> Edit',
 							['update','id'=>$key->idmateri],
 							['class'=>'btn btn-primary']
 							);
 						?>
 
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-remove"></i> Delete',
+							'<i class="glyphicon glyphicon-remove"></i> Hapus',
 							['delete','id'=>$key->idmateri],
 							[
 				            'class' => 'btn btn-sm btn-danger',

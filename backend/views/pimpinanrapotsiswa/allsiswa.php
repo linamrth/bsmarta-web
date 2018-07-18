@@ -14,7 +14,7 @@ $this->title = 'Siswa Pribadi || Guru';
 ?>
 
 <div class="row">
-	<h3>Daftar Siswa</h3>
+	<h3>Daftar Siswa Kursus</h3>
 	<hr>
 	<table class="table table-striped">
 		<thead>

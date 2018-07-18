@@ -18,13 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="informasikursus-view">
 
-    <h3><?= Html::encode($this->title) ?></h3>
-
     <div class="col-sm-12">
     <?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal']]);?>
-        <p>
-            <?= Html::a('Update', ['updatesiswabelajar', 'id' => $siswabelajar->idsiswabelajar], ['class' => 'btn btn-primary']) ?>
-        </p>
         <div class="panel panel-default">
             <div class="panel-heading">Informasi Siswa Kursus</div>
             <div class="panel-body">
@@ -89,16 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
 
     <p>
-        <?= Html::a('Generate Jadwal', ['generatejadwal', 'id' => $siswabelajar->idsiswabelajar], ['class' => 'btn btn-warning']) ?>
-        <?= Html::a('Hapus Generate', ['hapusgenerate', 'id' => $siswabelajar->idsiswabelajar],
-                [
-                    'class'=>'btn btn-danger', 
-                    'title'=>'Hapus Jadwal Generate',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
-                        'method' => 'post',
-                    ]
-                ]) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Generate Jadwal', ['generatejadwal', 'id' => $siswabelajar->idsiswabelajar], ['class' => 'btn btn-warning']) ?>
+        
     </p>
     <?php if(count($jadwalgenerate) == 0){ ?>
         <p class="text-center">Tidak ada jadwal!</p>

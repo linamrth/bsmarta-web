@@ -10,7 +10,7 @@ $this->title = 'Program || Kurikulum';
 	<h3 >Daftar Program</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Program', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Program', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -29,7 +29,7 @@ $this->title = 'Program || Kurikulum';
 					<td><?php echo Html::encode($key->deskripsi);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-search"></i> Detail',
+							'<i class="glyphicon glyphicon-search"></i> Detail Programs',
 							['view','id'=>$key->idprogram],
 							['class'=>'btn btn-sm btn-info']
 							);

@@ -9,8 +9,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Daftar Orang Tua', 'url' => ['inde
 $this->params['breadcrumbs'][] = ['label' => 'View', 'url' => ['view', 'id' => $model->idorangtua]];
 $this->params['breadcrumbs'][] = 'Daftar Siswa';
 ?>
-<h1>Daftar Siswa</h1>
-<hr>
 
 <?php $form = ActiveForm::begin();?>
 	<?= $form->field($model, 'idcabang')->dropDownList(
@@ -41,5 +39,5 @@ $this->params['breadcrumbs'][] = 'Daftar Siswa';
 	<?php echo $form->field($model, 'kelas')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input Kelas"])?>
 	<?php echo $form->field($model, 'keterangan')->textArea(['maxlength' => true])->textArea(['placeholder' => "Input Keterangan"])?>
 
-	<?php echo Html::submitButton('Create Siswa', ['class'=>'btn btn-success']);?>
+	<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Data Siswa', ['class'=>'btn btn-success']);?>
 <?php ActiveForm::end();?>

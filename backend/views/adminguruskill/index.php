@@ -15,7 +15,7 @@ $this->title = 'Skill Guru || Admin';
 	<h3 >Daftar Skill Guru</h3>
 	<hr>
 	<p>
-        <?= Html::a('Create Skill Guru', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Skill Guru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<table class="table table-striped">
 		<thead>
@@ -42,7 +42,7 @@ $this->title = 'Skill Guru || Admin';
 					<td><?php echo Html::encode($lvprogram['level']);?></td>
 					<td>
 						<?php echo Html::a(
-							'<i class="glyphicon glyphicon-pencil"></i> Update',
+							'<i class="glyphicon glyphicon-edit"></i> Update',
 							['update','id'=>$key->idguruskill],
 							['class'=>'btn btn-primary btn-sm']
 							);

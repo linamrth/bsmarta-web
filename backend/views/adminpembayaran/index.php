@@ -12,7 +12,7 @@ $this->title = 'Siswa Kursus || Admin';
 ?>
 
 <div class="row">
-    <h3>Siswa Kursus</h3>
+    <h3>Pembayaran Biaya Kursus</h3>
     <hr>
     <table class="table table-striped">
         <thead>

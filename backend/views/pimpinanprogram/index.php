@@ -10,6 +10,7 @@ $this->title = 'Program || Direktur';
 ?>
 
 <h3>Daftar Program</h3>
+<hr>
 
 <table class="table table-striped">
 	<thead>

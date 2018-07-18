@@ -149,7 +149,7 @@ AppAsset::register($this);
             $menuItems = [
                 ['label' => 'Program', 'url' => ['/kurikulumprogram/index']],
                 ['label' => 'Materi', 'url' => ['/kurikulummateri/index']],
-                ['label' => 'Lesson Plan', 'url' => ['/kurikulumlessonplan/index']],
+                ['label' => 'Target Belajar', 'url' => ['/kurikulumlessonplan/index']],
             ];
         }
 

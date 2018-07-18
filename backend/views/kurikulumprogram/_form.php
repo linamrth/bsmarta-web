@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'biayatambahan')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-plus"></i> Tambah Program' : '<i class="glyphicon glyphicon-edit"></i> Edit Program', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

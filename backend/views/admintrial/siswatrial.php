@@ -45,16 +45,16 @@ $this->title = 'Siswa Trial || Admin';
 							);
 						?>
 	                <?php if($key['status'] === 'Y') { ?>
-	                    <?php echo Html::a('Lihat Rapot Trial', ['rapottrial', 'id'=>$key['idjadwal']], ['class'=>'btn btn-info btn-sm','margin-left'=>'30px'] ); ?>
+	                    <?php echo Html::a('<i class="glyphicon glyphicon-search"></i> Lihat Rapot Trial', ['rapottrial', 'id'=>$key['idjadwal']], ['class'=>'btn btn-info btn-sm','margin-left'=>'30px'] ); ?>
 	                <?php } elseif($key['status'] === 'K') {
 	                            
 	                            //cinta baca 
 	                            if($key['idprogram'] == '1'){
-	                                echo Html::a('Input Rapot Trial', ['cintabacaform', 'id'=>$key['idjadwal']], ['class'=>'btn btn-danger btn-sm'] );
+	                                echo Html::a('<i class="glyphicon glyphicon-plus"></i> Input Rapot Trial', ['cintabacaform', 'id'=>$key['idjadwal']], ['class'=>'btn btn-danger btn-sm'] );
 
 	                            //cinta matika
 	                            }elseif($key['idprogram'] == '2'){
-	                                echo Html::a('Input Rapot Trial', ['cintamatikaform', 'id'=>$key['idjadwal']], ['class'=>'btn btn-danger btn-sm'] );
+	                                echo Html::a('<i class="glyphicon glyphicon-plus"></i> Input Rapot Trial', ['cintamatikaform', 'id'=>$key['idjadwal']], ['class'=>'btn btn-danger btn-sm'] );
 	                            }
 	                    }?>
 	            	</td>

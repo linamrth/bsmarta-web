@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					<?= $form->field($model, 'soal8')->radioList(['Ya' => 'Ya', 'Tidak' => 'Tidak']) ?>
 					<?= $form->field($model,'catatan')->textArea();?>
 				</div>
-				<?php echo Html::submitButton('Submit Rapot Trial', ['class' => 'btn btn-success']); ?>
+				<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Rapot Trial', ['class' => 'btn btn-success']); ?>
 				
 				<?php ActiveForm::end();?>
 				</div>

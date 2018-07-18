@@ -22,5 +22,5 @@ $this->title = 'Daftar Program Kursus';
             ['prompt'=>'-Pilih Program-']
         )->label('Program') ?>
 
-	<?php echo Html::submitButton('Daftar Program Kursus', ['class'=>'btn btn-success']);?>
+	<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Daftar Program Kursus', ['class'=>'btn btn-success']);?>
 <?php ActiveForm::end();?>
