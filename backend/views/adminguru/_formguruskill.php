@@ -12,11 +12,6 @@ use yii\widgets\ActiveForm;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'idguru')->dropDownList(
-			$model->listGuru(),
-			['prompt'=>'-Pilih Nama Guru-']
-		)->label('Guru') ?>
-
     <?= $form->field($model, 'idprogramlevel')->dropDownList(
     		$model->listProgramlevel(),
 			['prompt'=>'-Pilih Program dan Level-']

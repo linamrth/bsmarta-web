@@ -128,7 +128,6 @@ AppAsset::register($this);
             $menuItems = [
                 ['label' => 'Cabang', 'url' => ['/admincabang/index']],
                 ['label' => 'Guru', 'url' => ['/adminguru/index']],
-                ['label' => 'Skill Guru', 'url' => ['/adminguruskill/index']],
                 ['label' => 'User', 'url' => ['/adminuser/index']],
                 ['label' => 'Trial', 'items'=>[
                         ['label'=>'Daftar Siswa Trial', 'url' => ['/admintrial/index']],
@@ -187,7 +186,13 @@ AppAsset::register($this);
         //user direktur
         else if (Yii::$app->user->identity->level == 5) {
             $menuItems = [
-                ['label' => 'Program', 'url' => ['/direkturprogram/index']],
+                // ['label' => 'Jumlah Siswa', 'items'=>[
+                //         ['label' =>'Program', 'url' => ['/direkturjumlahsiswa/program']],
+                //         ['label'=>'Kelas', 'url' => ['/direkturjumlahsiswa/kelas']],
+                //         ['label'=>'Guru', 'url' => ['/direkturjumlahsiswa/guru']],
+                //     ]
+                // ],
+                ['label' => 'Jumlah Siswa', 'url' => ['/direkturprogram/index']],
                 ['label' => 'Rapot Siswa', 'items'=>[
                         ['label'=>'Rapot Trial', 'url' => ['/direkturrapotsiswa/siswatrial']],
                         ['label'=>'Perkembangan Hasil Belajar', 'url' => ['/direkturrapotsiswa/allsiswa']],
@@ -205,7 +210,7 @@ AppAsset::register($this);
         //user pimpinan
         else {
             $menuItems = [
-                ['label' => 'Program', 'url' => ['/pimpinanprogram/index']],
+                ['label' => 'Jumlah Siswa', 'url' => ['/pimpinanprogram/index']],
                 ['label' => 'Rapot Siswa', 'items'=>[
                         ['label'=>'Rapot Trial', 'url' => ['/pimpinanrapotsiswa/siswatrial']],
                         ['label'=>'Perkembangan Hasil Belajar', 'url' => ['/pimpinanrapotsiswa/allsiswa']],

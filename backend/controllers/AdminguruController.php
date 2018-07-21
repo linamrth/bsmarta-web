@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\db\Query;
 
 use backend\models\Guru;
+use backend\models\Guruskill;
 use backend\models\Cabang;
 
 class AdminguruController extends \yii\web\Controller
@@ -35,7 +36,23 @@ class AdminguruController extends \yii\web\Controller
     public function actionView($id)
     {
         $guru = Guru::find()->where(['idguru'=>$id])->one();
-        return $this->render('view', ['model' => $guru]);
+        $guruskill = Guruskill::find()->where(['idguru'=>$guru['idguru']])
+            ->orderBy(['idguruskill' => SORT_ASC])
+            ->all();
+        return $this->render('view', ['guru' => $guru, 'guruskill' => $guruskill]);
+    }
+
+    public function actionCreateguruskill($id)
+    {
+        $model = new Guruskill();
+        $model->idguru = $id;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idguru]);
+        }
+        else{
+            return $this->render('createguruskill', ['model' => $model]);
+        }
     }
 
     public function actionCreate()

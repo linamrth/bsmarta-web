@@ -6,11 +6,10 @@ use backend\models\Program;
 use backend\models\Programlevel;
 use backend\models\Siswabelajar;
 
-$this->title = 'Program || Direktur';
+$this->title = 'Jumlah Siswa Per Program || Direktur';
 ?>
 
-<h3>Jumlah Siswa per Program</h3>
-<hr>
+<h3>Daftar Program</h3>
 
 <table class="table table-striped">
 	<thead>

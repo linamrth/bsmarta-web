@@ -25,8 +25,8 @@ class DirekturprogramController extends \yii\web\Controller
     		->where([
     			'siswabelajar.idprogramlevel'=>$programlevel->idprogramlevel, 
     			'siswa.idcabang'=>Yii::$app->user->identity->idcabang])
+            ->orderBy(['idsiswabelajar' => SORT_ASC])
     		->all();
-
     	return $this->render('view', [
     		'judul'=>$programlevel,
     		'model' => $siswabelajar,
