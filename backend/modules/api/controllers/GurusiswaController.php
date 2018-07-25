@@ -201,21 +201,33 @@ class GurusiswaController extends Controller
             WHERE siswabelajar.idsiswabelajar = '".$id."'
             ORDER BY rapotbelajar.tanggal");
         $result = $command->queryAll();
+
+        if (count($result) > 0) {
+            $hasiltarget = array();
+            foreach ($result as $key) {
+                array_push($hasiltarget, $key['halamanketercapaian']);
+            }
+
+            $materi = array();
+            foreach ($result as $key) {
+                array_push($materi, $key['materi']);
+            }
+
+            $data = Lessonplan::find()->where(['idprogramlevel'=>$result[0]['idprogramlevel']])->all();
+            $pertemuan = array();
+            $target = array();
+            foreach ($data as $key) {
+                array_push($pertemuan, $key['pertemuan']);
+                array_push($target, $key['hal']);
+            }
+
+            return ['status'=>'OK', 'pertemuan'=>$pertemuan, 'target'=>$target, 'hasiltarget'=>$hasiltarget, 'materi'=>$materi];
+        }
+        else{
+             return ['status'=>'GAKOK'];
+        }
         
-        $hasiltarget = array();
-        foreach ($result as $key) {
-            array_push($hasiltarget, $key['halamanketercapaian']);
-        }
-
-        $data = Lessonplan::find()->where(['idprogramlevel'=>$result[0]['idprogramlevel']])->all();
-        $pertemuan = array();
-        $target = array();
-        foreach ($data as $key) {
-            array_push($pertemuan, $key['pertemuan']);
-            array_push($target, $key['hal']);
-        }
-
-        return ['status'=>'OK', 'pertemuan'=>$pertemuan, 'target'=>$target, 'hasiltarget'=>$hasiltarget];
+        
     }
 
     public function actionAllsiswa($id)
@@ -375,20 +387,32 @@ class GurusiswaController extends Controller
             WHERE siswabelajar.idsiswabelajar = '".$id."'
             ORDER BY rapotbelajar.tanggal");
         $result = $command->queryAll();
+
+        if (count($result) > 0) {
+            $hasiltarget = array();
+            foreach ($result as $key) {
+                array_push($hasiltarget, $key['halamanketercapaian']);
+            }
+
+            $materi = array();
+            foreach ($result as $key) {
+                array_push($materi, $key['materi']);
+            }
+
+            $data = Lessonplan::find()->where(['idprogramlevel'=>$result[0]['idprogramlevel']])->all();
+            $pertemuan = array();
+            $target = array();
+            foreach ($data as $key) {
+                array_push($pertemuan, $key['pertemuan']);
+                array_push($target, $key['hal']);
+            }
+
+            return ['status'=>'OK', 'pertemuan'=>$pertemuan, 'target'=>$target, 'hasiltarget'=>$hasiltarget, 'materi'=>$materi];
+        }
+        else{
+             return ['status'=>'GAKOK'];
+        }
         
-        $hasiltarget = array();
-        foreach ($result as $key) {
-            array_push($hasiltarget, $key['halamanketercapaian']);
-        }
-
-        $data = Lessonplan::find()->where(['idprogramlevel'=>$result[0]['idprogramlevel']])->all();
-        $pertemuan = array();
-        $target = array();
-        foreach ($data as $key) {
-            array_push($pertemuan, $key['pertemuan']);
-            array_push($target, $key['hal']);
-        }
-
-        return ['status'=>'OK', 'pertemuan'=>$pertemuan, 'target'=>$target, 'hasiltarget'=>$hasiltarget];
+        
     }
 }
