@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View', 'url' => ['view', 'id' => $
 $this->params['breadcrumbs'][] = 'Daftar Siswa';
 ?>
 
-<?php $form = ActiveForm::begin();?>
+<?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]);?>
 	<?= $form->field($model, 'idcabang')->dropDownList(
             $model->listCabang(),
             ['prompt'=>'-Pilih Cabang-']
@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = 'Daftar Siswa';
 	<?php echo $form->field($model, 'asalsekolah')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input Asal Sekolah"])?>
 	<?php echo $form->field($model, 'kelas')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input Kelas"])?>
 	<?php echo $form->field($model, 'keterangan')->textArea(['maxlength' => true])->textArea(['placeholder' => "Input Keterangan"])?>
+    <?= $form->field($model, 'foto')->fileInput() ?>
 
 	<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Data Siswa', ['class'=>'btn btn-success']);?>
 <?php ActiveForm::end();?>

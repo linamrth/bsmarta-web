@@ -16,6 +16,7 @@ class SiswaForm extends Model
 {
     public $idcabang;
     public $idorangtua;
+    public $foto;
     public $namalengkap;
     public $namapanggilan;
     public $alamat;
@@ -32,6 +33,7 @@ class SiswaForm extends Model
             [['idcabang', 'idorangtua'], 'integer'],
             [['alamat', 'keterangan'], 'string'],
             [['tgllahir'], 'safe'],
+            [['foto'], 'file'],
             [['namalengkap'], 'string', 'max' => 50],
             [['namapanggilan'], 'string', 'max' => 15],
             [['tempatlahir', 'asalsekolah'], 'string', 'max' => 30],
@@ -44,6 +46,7 @@ class SiswaForm extends Model
         return [
             'idcabang' => 'Idcabang',
             'idorangtua' => 'Idorangtua',
+            'foto' => 'Foto',
             'namalengkap' => 'Nama Lengkap',
             'namapanggilan' => 'Nama Panggilan',
             'alamat' => 'Alamat',

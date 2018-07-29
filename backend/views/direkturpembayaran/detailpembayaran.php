@@ -14,6 +14,13 @@ use backend\controllers\DirekturpembayaranController;
 $this->title = $result[0]['namalengkap'];
 $this->params['breadcrumbs'][] = ['label' => 'Pembayaran Siswa Kursus', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+function angkaRupiah($angka){
+    
+    $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+    return $hasil_rupiah;
+ 
+}
 ?>
 
 <div class="row">
@@ -24,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
                 <th>No</th>
                 <th>Hari dan Tanggal</th>
+                <th>Program Kursus</th>
+                <th>Biaya Kursus</th>
                 <th>Status Pembayaran</th>
             </tr>
         </thead>
@@ -33,6 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td><?php echo $n;?></td>
                     <td><?php echo Html::encode(DirekturpembayaranController::tglIndo($key['tanggal'], true));?></td>
+                    <td><?php echo Html::encode($key['namaprogram'].' - Level '.$key['level']);?></td>
+                    <td><?= angkaRupiah($key['biayakursus']);?></td>
                     <td>
                         <?php if($key['statuspembayaran'] === 'B') { ?>  
                             <span class="label label-danger">Belum Bayar</span>

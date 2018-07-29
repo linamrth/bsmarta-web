@@ -11,11 +11,31 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\db\Query;
 
+use backend\models\Program;
 use backend\models\Pembayaran;
 use backend\models\Siswabelajar;
 
 class AdminpembayaranController extends \yii\web\Controller
 {
+
+    public function actionReportpembayaran(){
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'application/pdf');
+        
+        $Pembayaran = Program::findOne(['idprogram'=>'1']);
+        
+        $content = $this->renderPartial('_reportView', [
+            'program' => $Pembayaran
+        ]);
+        
+        $pdf = Yii::$app->pdf;
+        $pdf->content = $content;
+        
+        return $pdf->render(); 
+    }
+
     public function actionIndex()
     {
         $connection = Yii::$app->getDb();
@@ -37,10 +57,12 @@ class AdminpembayaranController extends \yii\web\Controller
     {
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswabelajar.*, pembayaran.*
+            SELECT siswa.namalengkap, program.namaprogram, programlevel.level, program.biayakursus, siswabelajar.*, pembayaran.*
             FROM pembayaran
             LEFT JOIN siswabelajar ON pembayaran.idsiswabelajar = siswabelajar.idsiswabelajar
             LEFT JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
+            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
+            INNER JOIN program ON programlevel.idprogram = program.idprogram
             WHERE siswabelajar.idsiswabelajar = '".$id."'");
 
         $result = $command->queryAll();
@@ -54,7 +76,8 @@ class AdminpembayaranController extends \yii\web\Controller
         $model->statuspembayaran='S';
 
         if($model->save()){
-            return $this->redirect(['detailpembayaran', 'id'=>$model['idsiswabelajar']]);
+            // return $this->redirect(['detailpembayaran', 'id'=>$model['idsiswabelajar']]);
+            return $this->redirect(['reportpembayaran']);
         }
     }
 

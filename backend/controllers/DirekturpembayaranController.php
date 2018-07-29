@@ -38,10 +38,12 @@ class DirekturpembayaranController extends \yii\web\Controller
     {
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswabelajar.*, pembayaran.*
+            SELECT siswa.namalengkap, program.namaprogram, programlevel.level, program.biayakursus, siswabelajar.*, pembayaran.*
             FROM pembayaran
             LEFT JOIN siswabelajar ON pembayaran.idsiswabelajar = siswabelajar.idsiswabelajar
             LEFT JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
+            INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
+            INNER JOIN program ON programlevel.idprogram = program.idprogram
             WHERE siswabelajar.idsiswabelajar = '".$id."'");
 
         $result = $command->queryAll();
@@ -61,7 +63,7 @@ class DirekturpembayaranController extends \yii\web\Controller
             $tanggal = $model['tahun'].'-'.$model['bulan'];
             $connection = Yii::$app->getDb();
             $command = $connection->createCommand("
-                SELECT siswa.namalengkap, program.namaprogram, programlevel.level, pembayaran.tanggal, pembayaran.statuspembayaran
+                SELECT siswa.namalengkap, program.namaprogram, program.biayakursus, programlevel.level, pembayaran.tanggal
                 FROM pembayaran
                 INNER JOIN siswabelajar ON pembayaran.idsiswabelajar = siswabelajar.idsiswabelajar
                 INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa

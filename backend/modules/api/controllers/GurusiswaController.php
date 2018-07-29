@@ -51,7 +51,7 @@ class GurusiswaController extends Controller
         // return ['status'=>'OK', 'results'=>$result];
 
         $siswabelajar = Siswabelajar::find()
-            ->select('siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
+            ->select('siswa.foto, siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
             ->rightJoin('jadwal', 'jadwal.idsiswabelajar = siswabelajar.idsiswabelajar')
             ->leftJoin('programlevel', 'programlevel.idprogramlevel = siswabelajar.idprogramlevel')
             ->leftJoin('program', 'program.idprogram = programlevel.idprogram')
@@ -235,7 +235,7 @@ class GurusiswaController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         
         $siswabelajar = Siswabelajar::find()
-            ->select('siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
+            ->select('siswa.foto, siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar')
             ->rightJoin('jadwal', 'jadwal.idsiswabelajar = siswabelajar.idsiswabelajar')
             ->leftJoin('programlevel', 'programlevel.idprogramlevel = siswabelajar.idprogramlevel')
             ->leftJoin('program', 'program.idprogram = programlevel.idprogram')

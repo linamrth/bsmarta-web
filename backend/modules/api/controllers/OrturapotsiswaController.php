@@ -22,7 +22,7 @@ class OrturapotsiswaController extends Controller
         
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, trial.idtrial
+            SELECT siswa.foto, siswa.namalengkap, siswa.kelas, program.namaprogram, trial.idtrial
             FROM trial
             INNER JOIN program ON trial.idprogram = program.idprogram
             INNER JOIN siswa ON trial.idsiswa = siswa.idsiswa
@@ -76,7 +76,7 @@ class OrturapotsiswaController extends Controller
 
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar
+            SELECT siswa.foto, siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar
             FROM siswabelajar
             INNER JOIN programlevel ON siswabelajar.idprogramlevel = programlevel.idprogramlevel
             INNER JOIN program ON programlevel.idprogram = program.idprogram

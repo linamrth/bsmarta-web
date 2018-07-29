@@ -8,8 +8,11 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\db\Query;
+
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 use backend\models\Orangtua;
 use backend\models\Siswa;
@@ -46,7 +49,12 @@ class AdmintrialController extends \yii\web\Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin').'/images/ortu/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'ortu/'.$model->foto->baseName . '.' . $model->foto->extension;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idorangtua]);
         } else {
             return $this->render('updatedaftarortu', ['model' => $model]);
@@ -67,6 +75,10 @@ class AdmintrialController extends \yii\web\Controller
     	$model = new Orangtua();
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin') . '/images/ortu/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'ortu/'.$model->foto->baseName . '.' . $model->foto->extension;
+
         	$model->save();
             return $this->redirect(['index', 'id'=>$model->idorangtua]);
         }
@@ -97,9 +109,14 @@ class AdmintrialController extends \yii\web\Controller
         $tabel = new Siswa();
 
         if($model->load(Yii::$app->request->post()) && $model->validate())
-        {        
+        {   
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin') . '/images/siswa/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'siswa/'.$model->foto->baseName . '.' . $model->foto->extension;
+
             $tabel->idcabang       = $model->idcabang;
             $tabel->idorangtua     = $model->idorangtua;
+            $tabel->foto           = $model->foto;
             $tabel->namalengkap    = $model->namalengkap;
             $tabel->namapanggilan  = $model->namapanggilan;
             $tabel->alamat         = $model->alamat;

@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = 'Update';
                     ]
                 ]);?>
     <?php echo $form->field($model, 'keterangan')->textArea(['maxlength' => true])?>
+    <?= $form->field($model, 'foto')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Update Siswa', ['class' => 'btn btn-primary']) ?>

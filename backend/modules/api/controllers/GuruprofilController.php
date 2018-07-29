@@ -5,6 +5,7 @@ namespace backend\modules\api\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 use backend\models\Guru;
 use backend\models\Guruskill;
@@ -35,7 +36,7 @@ class GuruprofilController extends Controller
             WHERE guru.idguru = '".$id."'");
 
         $queryProfile = $connection->createCommand("
-            SELECT guru.namaguru, guru.telepon, guru.alamat, cabang.namacabang
+            SELECT guru.foto, guru.namaguru, guru.telepon, guru.alamat, cabang.namacabang
             FROM guru, cabang
             WHERE guru.idcabang = cabang.idcabang AND guru.idguru = '".$id."'"
         );
@@ -44,5 +45,28 @@ class GuruprofilController extends Controller
         $result["program"] = $command->queryAll();
         
         return ['status'=>'OK', 'results'=>$result];
+    }
+
+    public function actionUpload($id)
+    {
+         Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = $this->findModel($id);
+
+        $model->foto = UploadedFile::getInstanceByName('foto');
+        $model->foto->saveAs(Yii::getAlias('@admin').'/images/guru/' . $model->foto->baseName . '.' . $model->foto->extension);
+        $model->foto = 'guru/'.$model->foto->baseName . '.' . $model->foto->extension;
+
+        $model->save();
+        return ['status'=>'OK', 'result'=>$model];
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Guru::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }

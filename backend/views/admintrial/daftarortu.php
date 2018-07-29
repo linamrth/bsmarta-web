@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['prompt'=>'-Pilih Jenis Kelamin-']
         )->label('Jenis Kelamin') ?>
 	<?php echo $form->field($model, 'telepon')->textInput(['maxlength' => true])->textInput(['placeholder' => "Input No Telepon"])?>
+	<?= $form->field($model, 'foto')->fileInput() ?>
 
 	<?php echo Html::submitButton('<i class="glyphicon glyphicon-plus"></i> Tambah Data Orangtua', ['class'=>'btn btn-success']);?>
 <?php ActiveForm::end();?>

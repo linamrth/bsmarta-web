@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use yii\widgets\DetailView;
 
 use backend\models\Orangtua;
 use backend\models\Siswa;
@@ -21,26 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default">
             <div class="panel-heading">Informasi Orang Tua</div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="name">Nama</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo Html::encode($ortus->namaortu);?>" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="email">Jenis Kelamin</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo Html::encode($ortus->jeniskelamin);?>" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="email">No Telepon</label>
-                    <div class="col-sm-8">
-                        <input type="email" class="form-control" value="<?php echo Html::encode($ortus->telepon);?>" disabled>
-                    </div>
-                </div>
+                <?= DetailView::widget([
+                        'model' => $ortus,
+                        'attributes' => [
+                            [
+                                'attribute'=>'foto',
+                                'value'=>Yii::getAlias('@belakang/images/'.$ortus['foto']),
+                                'format'=>['image',['class'=>'img-thumbnail img-responsive', 'width'=>'150px']],
+                            ],
+                            'namaortu',
+                            'jeniskelamin',
+                            'telepon',
+                        ],
+                    ]) ?>
             </div>
         </div>  
         <?php ActiveForm::end();?>

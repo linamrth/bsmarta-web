@@ -9,6 +9,12 @@ use backend\controllers\DirekturpembayaranController;
 use backend\models\Pembayaran;
 
 $this->title = 'Pembayaran Global || Direktur';
+function angkaRupiah($angka){
+	
+	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+ 
+}
 ?>
 
 <div class="row">
@@ -37,29 +43,25 @@ $this->title = 'Pembayaran Global || Direktur';
 					<tr>
 						<th>No</th>
 						<th>Nama Siswa</th>
+						<th>Tanggal Pembayaran</th>
 						<th>Program Kursus</th>
-						<th>Tanggal</th>
-						<th>Status Pembayaran</th>
+						<th>Biaya Kursus</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php $n=0; foreach ($result as $key) { $n++; ?>
+					<?php $countBiaya = 0;?>
+					<?php $n=0; foreach ($result as $key) { $n++; $countBiaya += $key['biayakursus'];?>
 					<tr>
 						<td><?= $n;?></td>
 						<td><?= $key['namalengkap'];?></td>
-						<td><?= $key['namaprogram'].'- Level '.$key['level'];?></td>
 						<td><?php echo Html::encode(DirekturpembayaranController::tglIndo($key['tanggal'], true));?></td>
-						<td>
-		                    <?php if($key['statuspembayaran'] === 'B') { ?>  
-		                        <span class="label label-danger">Belum Bayar</span>
-		                    <?php } else { ?>
-		                        <span class="label label-success">Sudah Bayar</span>
-		                    <?php } ?>
-		                </td>
+						<td><?= $key['namaprogram'].'- Level '.$key['level'];?></td>
+						<td><?= angkaRupiah($key['biayakursus']);?></td>
 					</tr>
 				<?php } ?>
 				</tbody>
 			</table>
+			<h4 align="right">Total Pendapatan : <?= angkaRupiah($countBiaya);?></h4>
 			</div>
 		</div>	
 	</div>

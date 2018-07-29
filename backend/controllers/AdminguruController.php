@@ -5,9 +5,11 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\db\Query;
 
 use yii\web\Controller;
-use yii\db\Query;
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 use backend\models\Guru;
 use backend\models\Guruskill;
@@ -59,7 +61,13 @@ class AdminguruController extends \yii\web\Controller
     {
         $model = new Guru();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin') . '/images/guru/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'guru/'.$model->foto->baseName . '.' . $model->foto->extension;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idguru]);
         }
         else{
@@ -71,7 +79,13 @@ class AdminguruController extends \yii\web\Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin').'/images/guru/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'guru/'.$model->foto->baseName . '.' . $model->foto->extension;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idguru]);
         } else {
             return $this->render('update', ['model' => $model]);

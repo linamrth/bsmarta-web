@@ -9,11 +9,11 @@ use yii\widgets\ActiveForm;
 $this->title = 'Penilaian Kinerja Guru || Direktur';
 function statusLabel($isi)
 {
-	if($isi < 3.34) {
-		$hasil = "<span class='label label-warning'>Warning</span>";
+	if($isi >= 3.34) {
+		$hasil = "<span class='label label-success'>Aman</span>";
 	}
 	else{
-		$hasil = "<span class='label label-success'>Aman</span>";
+		$hasil = "<span class='label label-danger'>Warning</span>";
 	}
 
 	return $hasil;
@@ -58,17 +58,16 @@ function statusLabel($isi)
 					<tr>
 						<td><?= $n;?></td>
 						<td><?= $key['nmguru'];?></td>
-						<td><?= ceil($key['hasil']);?></td>
+						<!-- <td><?= ceil($key['hasil']);?></td> -->
+						<td><?= $key['hasil'];?></td>
 						<td><?= statusLabel($key['hasil']);?></td>
 					</tr>
 				<?php }} ?>
 				</tbody>
-				<tbody>
-					
-				</tbody>
 			</table>
 			</div>
 		</div>	
+		<h5>*Nilai Standard = 3,34</h5>
 	</div>
 	</form>
 </div>

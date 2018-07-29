@@ -20,7 +20,7 @@ class OrtupembayaranController extends Controller
         
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
-            SELECT siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar
+            SELECT siswa.foto, siswa.namalengkap, siswa.kelas, program.namaprogram, programlevel.level, siswabelajar.idsiswabelajar
             FROM siswabelajar
             INNER JOIN siswa ON siswabelajar.idsiswa = siswa.idsiswa
             INNER JOIN orangtua ON siswa.idorangtua = orangtua.idorangtua

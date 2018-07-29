@@ -10,9 +10,10 @@ use backend\models\Orangtua;
 /**
  * This is the model class for table "siswa".
  *
- * @property integer $idsiswa
- * @property integer $idcabang
- * @property integer $idorangtua
+ * @property int $idsiswa
+ * @property int $idcabang
+ * @property int $idorangtua
+ * @property string $foto
  * @property string $namalengkap
  * @property string $namapanggilan
  * @property string $alamat
@@ -22,7 +23,7 @@ use backend\models\Orangtua;
  * @property string $kelas
  * @property string $tgldaftar
  * @property string $keterangan
- * @property string $statussiswa
+ * @property string $statussiswa N=Belum Trial, T=Sudah Daftar Trial, M=Selesai Trial, Y=Siswa Kursus
  */
 class Siswa extends \yii\db\ActiveRecord
 {
@@ -40,10 +41,11 @@ class Siswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idcabang', 'idorangtua', 'namalengkap', 'namapanggilan', 'alamat', 'tempatlahir', 'tgllahir', 'asalsekolah', 'kelas', 'tgldaftar'], 'required'],
+            [['idcabang', 'idorangtua', 'foto', 'namalengkap', 'namapanggilan', 'alamat', 'tempatlahir', 'tgllahir', 'asalsekolah', 'kelas', 'tgldaftar', 'keterangan'], 'required'],
             [['idcabang', 'idorangtua'], 'integer'],
             [['alamat', 'keterangan'], 'string'],
             [['tgllahir', 'tgldaftar'], 'safe'],
+            [['foto'], 'string', 'max' => 200],
             [['namalengkap'], 'string', 'max' => 50],
             [['namapanggilan'], 'string', 'max' => 15],
             [['tempatlahir', 'asalsekolah'], 'string', 'max' => 30],
@@ -61,14 +63,15 @@ class Siswa extends \yii\db\ActiveRecord
             'idsiswa' => 'Idsiswa',
             'idcabang' => 'Idcabang',
             'idorangtua' => 'Idorangtua',
-            'namalengkap' => 'Nama Lengkap',
-            'namapanggilan' => 'Nama Panggilan',
+            'foto' => 'Foto',
+            'namalengkap' => 'Namalengkap',
+            'namapanggilan' => 'Namapanggilan',
             'alamat' => 'Alamat',
-            'tempatlahir' => 'Tempat Lahir',
-            'tgllahir' => 'Tanggal Lahir',
-            'asalsekolah' => 'Asal Sekolah',
+            'tempatlahir' => 'Tempatlahir',
+            'tgllahir' => 'Tgllahir',
+            'asalsekolah' => 'Asalsekolah',
             'kelas' => 'Kelas',
-            'tgldaftar' => 'Tanggal Daftar',
+            'tgldaftar' => 'Tgldaftar',
             'keterangan' => 'Keterangan',
             'statussiswa' => 'Statussiswa',
         ];

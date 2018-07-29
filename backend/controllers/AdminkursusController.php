@@ -8,8 +8,10 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\db\Query;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 use backend\models\Orangtua;
 use backend\models\Siswa;
@@ -243,9 +245,15 @@ class AdminkursusController extends \yii\web\Controller
     {
         $model = $this->findModelsiswa($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             $idsiswa = $model->idsiswa;
             $siswabelajar = Siswabelajar::find()->where(['idsiswa'=>$idsiswa])->one();
+
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs(Yii::getAlias('@admin').'/images/siswa/' . $model->foto->baseName . '.' . $model->foto->extension);
+            $model->foto = 'siswa/'.$model->foto->baseName . '.' . $model->foto->extension;
+
+            $model->save();
 
             return $this->redirect(['detailsiswa', 'id' => $siswabelajar->idsiswabelajar ]);
         } else {
@@ -344,7 +352,7 @@ class AdminkursusController extends \yii\web\Controller
             $bulanadd++;
         }
 
-        //untuk input ke rapot kursus
+        //untuk input ke jadwal generate dan ditampilkan ke informasi kursus yg jadwal generate
         foreach ($carijadwal as $key) 
         {
             $plus = 7;
